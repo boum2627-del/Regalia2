@@ -1,133 +1,71 @@
-/* Regalia Theme Styles */
-
-:root {
-    --gold: #D4AF37;
-    --gold-light: #F4DF8D;
-    --gold-dark: #AA8C2C;
-    --black: #050505;
-    --black-soft: #111111;
-}
-
+/* Base Styles */
 body {
-    background-color: var(--black);
+    background-color: #050505;
     color: white;
+    overflow-x: hidden;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Typography Overrides */
-.font-cinzel {
+html {
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, .font-serif {
     font-family: 'Cinzel', serif;
 }
-.font-montserrat {
-    font-family: 'Montserrat', sans-serif;
-}
 
-.text-gold {
-    color: var(--gold);
-}
-
-.bg-gold {
-    background-color: var(--gold);
-}
-
-.border-gold {
-    border-color: var(--gold);
+/* Sections padding for sticky nav offset */
+section {
+    scroll-margin-top: 100px;
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: var(--black);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--gold-dark);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--gold);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #d4af37; }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+::selection { background: #d4af37; color: black; }
 
-.animate-fade-in-up {
-    animation: fadeInUp 1s ease-out forwards;
-    opacity: 0;
-}
+/* Animations Classes */
+.fade-in { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-500 { animation-delay: 0.5s; }
+/* Loader Animation */
+#intro-screen {
+    position: fixed; inset: 0; z-index: 100;
+    background: black; display: flex; align-items: center; justify-content: center;
+    transition: opacity 1.5s ease-in-out, visibility 1.5s;
+}
+.intro-hidden { opacity: 0; visibility: hidden; }
 
-/* Page Transitions */
-.page-section {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    display: none; /* Controlled by JS */
-}
+/* Active States */
+.nav-link.active { color: #d4af37; }
 
-.page-section.active-section {
-    display: block; /* Or flex, depending on section */
-    opacity: 1;
-    transform: translateY(0);
+/* Modal Styles */
+.modal-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
 }
+.modal-overlay.open { opacity: 1; visibility: visible; }
 
-/* Special Layouts for sections */
-#home.active-section {
-    display: flex; /* Override block for flex layout */
+.modal-content {
+    background: #111;
+    border: 1px solid #333;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
 }
+.modal-overlay.open .modal-content { transform: scale(1); }
 
-#contact.active-section {
-    display: flex;
-}
-
-/* Navigation Active State */
-.nav-link.active {
-    color: var(--gold);
-}
-.nav-link.active span {
-    width: 100%;
-}
-
-/* Form Styling */
-input::placeholder, textarea::placeholder {
-    color: #555;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-}
-
-/* Card Hover Effects */
-.car-card {
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.car-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Image Gradients */
-.image-overlay-gradient {
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
-}
-
-/* Logo illumination effect */
-.illuminated-logo {
-    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
-    animation: pulse-glow 3s infinite alternate;
-}
-
-@keyframes pulse-glow {
-    from { filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); }
-    to { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)); }
-}
+/* Utility */
+.text-glow { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+.border-gradient { border-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728) 1; }
